@@ -41,7 +41,8 @@ class App extends React.Component {
       },
 
       home: {
-        currentQuestionText: "", // whatever question the user is currently typing
+        currentQuestionText:
+          "I have a big decision to make and I need some serious help,  etc etc blah blah", // whatever question the user is currently typing
         questionsSummaries: [
           {
             summary: "What language should I learn?...",
@@ -122,7 +123,7 @@ class App extends React.Component {
             username: "demo",
             avatar: "DE"
           },
-          ...questionsSummaries
+          ...this.state.home.questionsSummaries
         ]
       }
     });
