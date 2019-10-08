@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Nav from "../components/nav";
+import Home from "./Home";
 
 const isServer = typeof window === "undefined";
 
@@ -79,17 +80,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.questionDetails.currentResponseText}
-        <hr />
-        <div>
-          {this.state.questionDetails.comments.map((comment, index) => (
-            <div key={index}>{comment.text}</div>
-          ))}
+      <Home {...this.state.home}></Home>
 
-          <button onClick={() => this.handleAddComment()}>Add Comment</button>
-        </div>
-      </div>
+      //   <div>
+      //     {this.state.questionDetails.currentResponseText}
+      //     <hr />
+      //     <div>
+      //       {this.state.questionDetails.comments.map((comment, index) => (
+      //         <div key={index}>{comment.text}</div>
+      //       ))}
+
+      //       <button onClick={() => this.handleAddComment()}>Add Comment</button>
+      //     </div>
+      //   </div>
     );
   }
 }
