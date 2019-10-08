@@ -2,25 +2,93 @@ import React from "react";
 import Head from "next/head";
 import Nav from "../components/nav";
 
-const Hi = ({ name }) => <h1>Sup yo, {name}</h1>;
+const isServer = typeof window === "undefined";
 
-class Home extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      count: 0
+      home: {
+        currentQuestionText: "", // whatever question the user is currently typing
+        questionsSummaries: [
+          {
+            summary: "What language should I learn?...",
+            commentCount: 12,
+            username: "Rokhuda",
+            avatar: "RO" // https://material-ui.com/components/avatars/#avatars
+          },
+          {
+            summary: "I want to work for a big cmoopany, wha...",
+            commentCount: 21,
+            username: "Kimmy",
+            avatar: "KI"
+          },
+          {
+            summary: "I'm going for my first job inerview at...",
+            commentCount: 13,
+            username: "Sbu",
+            avatar: "SB"
+          }
+        ]
+      },
+      questionDetails: {
+        fullQuestionText:
+          "What language should I learn? I am a scientist and I like biology and anime waaaaay too much. What languages can I use to make my microbiology career awesome?",
+
+        comments: [
+          {
+            text: "Python!!! Woooo python",
+            username: "Sheena",
+            avatar: "SH"
+          },
+          {
+            text:
+              "R might be nice too. By statiticians, for stataticians. And the graphics are cool",
+            username: "Warwick",
+            avatar: "WA"
+          },
+          {
+            text:
+              "Agreed, but I would start with Python, it's generally a more useful language so you can use it for ... many nifty things.Check this out: https://automatetheboringstuff.com/",
+            username: "sheena",
+            avatar: "SB"
+          }
+        ],
+        currentResponseText: "" // whatever comment the user is currently typing
+      }
     };
   }
 
-  handleClick() {
-    this.setState({ count: this.state.count + 1 });
+  handleAddComment() {
+    if (this.state.questionDetails.currentResponseText) {
+      this.setState({
+        questionDetails: {
+          ...this.state.questionDetails,
+          currentResponseText: "",
+          comments: [
+            ...this.state.questionDetails.comments,
+            {
+              text: this.state.questionDetails.currentResponseText,
+              username: "testing tessting"
+            }
+          ]
+        }
+      });
+    }
   }
 
   render() {
     return (
       <div>
-        <h1>Rendering!!! {this.state.count}</h1>
-        <button onClick={() => this.handleClick()}></button>
+        {this.state.questionDetails.currentResponseText}
+        <hr />
+        <div>
+          {this.state.questionDetails.comments.map((comment, index) => (
+            <div key={index}>{comment.text}</div>
+          ))}
+
+          <button onClick={() => this.handleAddComment()}>Add Comment</button>
+        </div>
       </div>
     );
   }
@@ -88,4 +156,4 @@ class Home extends React.Component {
 //   </div>
 // );
 
-export default Home;
+export default App;
