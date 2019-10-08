@@ -70,7 +70,7 @@ class App extends React.Component {
             ...this.state.questionDetails.comments,
             {
               text: this.state.questionDetails.currentResponseText,
-              username: "testing tessting"
+              username: "demo"
             }
           ]
         }
@@ -78,9 +78,41 @@ class App extends React.Component {
     }
   }
 
+  handleAddQuestion() {
+    this.setState({
+      home: {
+        ...this.state.home,
+
+        currentQuestionText: "",
+        questionsSummaries: [
+          {
+            summary: this.state.home.currentQuestionText.slice(0, 8) + "...",
+            commentCount: 0,
+            username: "demo",
+            avatar: "DE"
+          },
+          ...questionsSummaries
+        ]
+      }
+    });
+  }
+
+  handleChangeQuestionInput(text) {
+    this.setState({
+      home: {
+        ...this.state.home,
+        currentQuestionText: text
+      }
+    });
+  }
+
   render() {
     return (
-      <Home {...this.state.home}></Home>
+      <Home
+        {...this.state.home}
+        handleAddQuestion={() => this.handleAddQuestion()}
+        handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
+      ></Home>
 
       //   <div>
       //     {this.state.questionDetails.currentResponseText}
