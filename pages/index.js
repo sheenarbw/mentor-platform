@@ -1,15 +1,45 @@
 import React from "react";
-import Head from "next/head";
-import Nav from "../components/nav";
+// import Head from "next/head";
+// import Nav from "../components/nav";
 import Home from "./Home";
 import QuestionDetails from "./QuestionDetails";
+import PrivateChat from "./PrivateChat";
 
-const isServer = typeof window === "undefined";
+import Header from "../components/Header";
+
+// const isServer = typeof window === "undefined";
+const HOME = "home";
+const QUESTION_DETAILS = "question";
+const PRIVATE_CHAT = "private";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      currentPage: HOME,
+
+      privateMessages: {
+        messages: [
+          {
+            text: "Thanks so much for your advice, I really appreciate it!",
+            from: "me",
+            avatar: "ME"
+          },
+          {
+            text:
+              "I was wondering if I could ask you questions from time to time. I'm just starting this job and it looks like there's going to be a big learning curve",
+            from: "me",
+            avatar: "ME"
+          },
+          {
+            text: "Hey, no worries. I'm happy to help",
+            from: "mentorX",
+            avatar: "MX"
+          }
+        ],
+        currentMessageText: ""
+      },
+
       home: {
         currentQuestionText: "", // whatever question the user is currently typing
         questionsSummaries: [
@@ -119,29 +149,26 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Home
-          {...this.state.home}
-          handleAddQuestion={() => this.handleAddQuestion()}
-          handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
-        ></Home>
-        <QuestionDetails
-          {...this.state.questionDetails}
-          handleAddComment={() => this.handleAddComment()}
-          handleChangeCommentInput={text => this.handleAddComment(text)}
-        ></QuestionDetails>
+        <Header />
+        {this.state.currentPage === HOME && (
+          <Home
+            {...this.state.home}
+            handleAddQuestion={() => this.handleAddQuestion()}
+            handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
+          ></Home>
+        )}
+        {this.state.currentPage === QUESTION_DETAILS && (
+          <QuestionDetails
+            {...this.state.questionDetails}
+            handleAddComment={() => this.handleAddComment()}
+            handleChangeCommentInput={text => this.handleAddComment(text)}
+          ></QuestionDetails>
+        )}
+
+        {this.state.currentPage === PRIVATE_CHAT && (
+          <PrivateChat {...this.state.privateMessages} />
+        )}
       </React.Fragment>
-
-      //   <div>
-      //     {this.state.questionDetails.currentResponseText}
-      //     <hr />
-      //     <div>
-      //       {this.state.questionDetails.comments.map((comment, index) => (
-      //         <div key={index}>{comment.text}</div>
-      //       ))}
-
-      //       <button onClick={() => this.handleAddComment()}>Add Comment</button>
-      //     </div>
-      //   </div>
     );
   }
 }
