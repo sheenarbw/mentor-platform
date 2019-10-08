@@ -87,7 +87,8 @@ class App extends React.Component {
             avatar: "SB"
           }
         ],
-        currentResponseText: "" // whatever comment the user is currently typing
+        currentResponseText:
+          "Great question! Here's some totally meaningful advice..." // whatever comment the user is currently typing
       }
     };
   }
@@ -150,11 +151,14 @@ class App extends React.Component {
   goToQuestionDetails() {
     this.setState({ currentPage: QUESTION_DETAILS });
   }
+  goToHome() {
+    this.setState({ currentPage: HOME });
+  }
 
   render() {
     return (
       <React.Fragment>
-        <Header />
+        <Header goToHome={() => goToHome()} />
         {this.state.currentPage === HOME && (
           <Home
             {...this.state.home}
@@ -167,7 +171,9 @@ class App extends React.Component {
           <QuestionDetails
             {...this.state.questionDetails}
             handleAddComment={() => this.handleAddComment()}
-            handleChangeCommentInput={text => this.handleAddComment(text)}
+            handleChangeCommentInput={text =>
+              this.handleChangeCommentInput(text)
+            }
           ></QuestionDetails>
         )}
 

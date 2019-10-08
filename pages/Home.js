@@ -22,7 +22,7 @@ function Home(props) {
     handleAddQuestion,
     goToQuestionDetails
   } = props;
-  console.log(currentQuestionText);
+  //   console.log(currentQuestionText);
   return (
     <div>
       <TextField
@@ -36,6 +36,7 @@ function Home(props) {
         fullWidth
       />
       <Button onClick={handleAddQuestion}>Ask</Button>
+      <hr />
 
       {questionsSummaries.map((data, index) => {
         return (
