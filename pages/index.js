@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Nav from "../components/nav";
 import Home from "./Home";
+import QuestionDetails from "./QuestionDetails";
 
 const isServer = typeof window === "undefined";
 
@@ -106,13 +107,29 @@ class App extends React.Component {
     });
   }
 
+  handleChangeCommentInput(text) {
+    this.setState({
+      questionDetails: {
+        ...this.state.questionDetails,
+        currentResponseText: text
+      }
+    });
+  }
+
   render() {
     return (
-      <Home
-        {...this.state.home}
-        handleAddQuestion={() => this.handleAddQuestion()}
-        handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
-      ></Home>
+      <React.Fragment>
+        <Home
+          {...this.state.home}
+          handleAddQuestion={() => this.handleAddQuestion()}
+          handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
+        ></Home>
+        <QuestionDetails
+          {...this.state.questionDetails}
+          handleAddComment={() => this.handleAddComment()}
+          handleChangeCommentInput={text => this.handleAddComment(text)}
+        ></QuestionDetails>
+      </React.Fragment>
 
       //   <div>
       //     {this.state.questionDetails.currentResponseText}
