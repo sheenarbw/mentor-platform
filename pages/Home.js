@@ -16,7 +16,12 @@ import { Button } from "@material-ui/core";
 // avatar
 
 function Home(props) {
-  const { questionsSummaries, currentQuestionText, handleAddQuestion } = props;
+  const {
+    questionsSummaries,
+    currentQuestionText,
+    handleAddQuestion,
+    goToQuestionDetails
+  } = props;
   console.log(currentQuestionText);
   return (
     <div>
@@ -34,7 +39,7 @@ function Home(props) {
 
       {questionsSummaries.map((data, index) => {
         return (
-          <div key={index}>
+          <div key={index} onClick={goToQuestionDetails}>
             <b>{data.commentCount}</b> {data.summary} - {data.username}
             {/* <Avatar>{data.avatar}</Avatar> */}
           </div>

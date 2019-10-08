@@ -147,6 +147,10 @@ class App extends React.Component {
     });
   }
 
+  goToQuestionDetails() {
+    this.setState({ currentPage: QUESTION_DETAILS });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -156,6 +160,7 @@ class App extends React.Component {
             {...this.state.home}
             handleAddQuestion={() => this.handleAddQuestion()}
             handleChangeQuestionInput={text => handleChangeQuestionInput(text)}
+            goToQuestionDetails={() => this.goToQuestionDetails()}
           ></Home>
         )}
         {this.state.currentPage === QUESTION_DETAILS && (
